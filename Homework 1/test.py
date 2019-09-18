@@ -253,25 +253,32 @@ from functions import classificationAccuracyA, classificationAccuracyB
 
 #test the accuracy for these 10 k values
 kValues = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
-k = 1
-classifications = []
-for i in range(testCSVRows):
-    currentTestRow = []
-    for j in range(testCSVCols -1):
-        currentTestRow.append(int(testCSV_matrix.item(i, j)))
-    neighbors = getNeighbors(test_table_matrix, currentTestRow, k)
-    classDecision = neighborVote(neighbors)
-    classifications.append(classDecision)
+kAcc = []
+kBAcc = []
+for k in kValues:
+    classifications = []
+    for i in range(testCSVRows):
+        currentTestRow = []
+        for j in range(testCSVCols -1):
+            currentTestRow.append(int(testCSV_matrix.item(i, j)))
+        neighbors = getNeighbors(test_table_matrix, currentTestRow, k)
+        classDecision = neighborVote(neighbors)
+        classifications.append(classDecision)
 
-print classifications
+    # print classifications
 
-#getting the actual classifications
-actualClassifications = []
-for i in range(testCSVRows):
-    actualClassifications.append(int(testCSV_matrix.item(i,9)))
+    #getting the actual classifications
+    actualClassifications = []
+    for i in range(testCSVRows):
+        actualClassifications.append(int(testCSV_matrix.item(i,9)))
 
-print actualClassifications
+    # print actualClassifications
+    Acc = classificationAccuracyA(classifications, actualClassifications)
+    BAcc = classificationAccuracyB(classifications, actualClassifications)
+    kAcc.append(Acc)
+    kBAcc.append(BAcc)
+    print k, " Acc ", Acc
+    print k, " BAcc ", BAcc
 
-print "Acc ", classificationAccuracyA(classifications, actualClassifications)
-
-print "BAcc ", classificationAccuracyB(classifications, actualClassifications)
+print kAcc
+print kBAcc
