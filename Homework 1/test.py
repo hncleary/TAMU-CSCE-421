@@ -135,5 +135,115 @@ if plotQuestion2:
     ax[2,2].hist(mitoses, [0,1,2,3,4,5,6,7,8,9,10] )
     ax[2,2].set_title('Mitoses')
 
+    plt.show()
 
 # Question a.iii plot scatter plots of 5 selected pairs
+#random pairs 2,5 - 3,8 - 1,6 - 4,7 - 6,3
+
+#PAIR NO.1 2 & 5
+pairOneXBenign = []
+pairOneYBenign = []
+pairOneXMalignant = []
+pairOneYMalignant = []
+
+for i in range(testMatrixRows):
+    if int(test_table_matrix.item(i,9)) == 4 :
+        pairOneXMalignant.append( int(test_table_matrix.item(i,1)) )
+        pairOneYMalignant.append( int(test_table_matrix.item(i,4)) )
+    if int(test_table_matrix.item(i,9)) == 2 :
+        pairOneXBenign.append(int(test_table_matrix.item(i,1)))
+        pairOneYBenign.append(int(test_table_matrix.item(i,4)))
+
+#PAIR NO.2 3 & 8
+pairTwoXBenign = []
+pairTwoYBenign = []
+pairTwoXMalignant = []
+pairTwoYMalignant = []
+
+for i in range(testMatrixRows):
+    if int(test_table_matrix.item(i,9)) == 4 :
+        pairTwoXMalignant.append( int(test_table_matrix.item(i,2)) )
+        pairTwoYMalignant.append( int(test_table_matrix.item(i,7)) )
+    if int(test_table_matrix.item(i,9)) == 2 :
+        pairTwoXBenign.append(int(test_table_matrix.item(i,2)))
+        pairTwoYBenign.append(int(test_table_matrix.item(i,7)))
+
+#PAIR NO.3 1 & 6
+pairThreeXBenign = []
+pairThreeYBenign = []
+pairThreeXMalignant = []
+pairThreeYMalignant = []
+
+for i in range(testMatrixRows):
+    if int(test_table_matrix.item(i,9)) == 4 :
+        pairThreeXMalignant.append( int(test_table_matrix.item(i,0)) )
+        pairThreeYMalignant.append( int(test_table_matrix.item(i,5)) )
+    if int(test_table_matrix.item(i,9)) == 2 :
+        pairThreeXBenign.append(int(test_table_matrix.item(i,0)))
+        pairThreeYBenign.append(int(test_table_matrix.item(i,5)))
+
+#PAIR NO.4 4 & 7
+pairFourXBenign = []
+pairFourYBenign = []
+pairFourXMalignant = []
+pairFourYMalignant = []
+
+for i in range(testMatrixRows):
+    if int(test_table_matrix.item(i,9)) == 4 :
+        pairFourXMalignant.append( int(test_table_matrix.item(i,3)) )
+        pairFourYMalignant.append( int(test_table_matrix.item(i,6)) )
+    if int(test_table_matrix.item(i,9)) == 2 :
+        pairFourXBenign.append(int(test_table_matrix.item(i,3)))
+        pairFourYBenign.append(int(test_table_matrix.item(i,6)))
+
+#PAIR No.5 6 & 3
+pairFiveXBenign = []
+pairFiveYBenign = []
+pairFiveXMalignant = []
+pairFiveYMalignant = []
+
+for i in range(testMatrixRows):
+    if int(test_table_matrix.item(i,9)) == 4 :
+        pairFiveXMalignant.append( int(test_table_matrix.item(i,5)) )
+        pairFiveYMalignant.append( int(test_table_matrix.item(i,2)) )
+    if int(test_table_matrix.item(i,9)) == 2 :
+        pairFiveXBenign.append(int(test_table_matrix.item(i,5)))
+        pairFiveYBenign.append(int(test_table_matrix.item(i,2)))
+
+
+plotQuestion3 = False
+if plotQuestion3:
+    fig2, ax = plt.subplots(1,5)
+    fig2.subplots_adjust(wspace = .3, hspace = .5)
+    #PAIR NO. 1 Plot 2v5
+    ax[0].scatter(pairOneXMalignant, pairOneYMalignant, color="red", alpha = .5)
+    ax[0].scatter(pairOneXBenign, pairOneYBenign, color="blue", alpha = .5)
+    ax[0].set_title('Feat. 2 vs. Feat. 5')
+    #PAIR NO. 2 Plot 3v8
+    ax[1].scatter(pairTwoXMalignant, pairTwoYMalignant, color="red", alpha = .5)
+    ax[1].scatter(pairTwoXBenign, pairTwoYBenign, color="blue", alpha = .5)
+    ax[1].set_title('Feat. 3 vs. Feat. 8')
+    #PAIR NO.3 Plot 1v6
+    ax[2].scatter(pairThreeXMalignant, pairThreeYMalignant, color="red", alpha = .5)
+    ax[2].scatter(pairThreeXBenign, pairThreeYBenign, color="blue", alpha = .5)
+    ax[2].set_title('Feat. 1 vs. Feat. 6')
+    #PAIR NO.4 Plot 4v7
+    ax[3].scatter(pairFourXMalignant, pairFourYMalignant, color="red", alpha = .5)
+    ax[3].scatter(pairFourXBenign, pairFourYBenign, color="blue", alpha = .5)
+    ax[3].set_title('Feat. 4 vs. Feat. 7')
+    #PAIR No.5 Plot 6v3
+    ax[4].scatter(pairFiveXMalignant, pairFiveYMalignant, color="red", alpha = .5)
+    ax[4].scatter(pairFiveXBenign, pairFiveYBenign, color="blue", alpha = .5)
+    ax[4].set_title('Feat. 6 vs. Feat. 3')
+
+    plt.show()
+
+# Question B-I
+# Implement a KNN nearest neighbor classifier
+from functions import euclideanDistance
+
+x = (5,6,7)
+y = (8,9,9)
+
+print euclideanDistance(x, y)
+
