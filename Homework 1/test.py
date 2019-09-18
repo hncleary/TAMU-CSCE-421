@@ -4,7 +4,7 @@ print "Numpy Version: " , (np.__version__)
 import csv as csv
 print "CSV Version: " , (csv.__version__)
 
-question1 = True
+question1 = False
 
 # load train csv
 print "Loading Train CSV"
@@ -18,25 +18,28 @@ with open("hw1_question1_train.csv") as csvtrain:
     test_table_matrix = np.matrix(test_table)
     # print test_table_matrix
 
-    print test_table_matrix.item((0,9))
+    # print test_table_matrix.item((0,9))
 if not question1:
     #load dev csv
     print "Loading Dev CSV"
     with open("hw1_question2_dev.csv") as csvdev:
         reader = csv.DictReader(csvdev)
-        for row in reader:
-            print row
+        # for row in reader:
+        #     print row
 
     #load test csv
     print "Loading Test CSV"
     with open("hw1_question2_test.csv") as csvtest:
         reader = csv.DictReader(csvtest)
-        for row in reader:
-            print row
-
+        # for row in reader:
+        #     print row
+        testCSV_table = [row.split(",") for row in csvtest.read().replace("\r", "").split("\n")]
+        testCSV_matrix = np.matrix(testCSV_table)
+    testCSVRows = np.size(testCSV_matrix, 0)
+    testCSVCols = np.size(testCSV_matrix, 1)
 # Question a.i
-testMatrixRows = np.size(test_table_matrix,0)
-testMatrixColumns = np.size(test_table_matrix,1)
+testMatrixRows = np.size(test_table_matrix, 0)
+testMatrixColumns = np.size(test_table_matrix, 1)
 # print testMatrixRows , testMatrixColumns
 totalMalignant = 0
 totalBenign = 0
@@ -241,9 +244,34 @@ if plotQuestion3:
 # Question B-I
 # Implement a KNN nearest neighbor classifier
 from functions import euclideanDistance
+from functions import sciPyEuclideanDistance
+from functions import getNeighbors
+from functions import neighborVote
+from functions import classificationAccuracyA, classificationAccuracyB
 
-x = (5,6,7)
-y = (8,9,9)
+#there are a 100 test CSV rows
 
-print euclideanDistance(x, y)
+#test the accuracy for these 10 k values
+kValues = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+k = 1
+classifications = []
+for i in range(testCSVRows):
+    currentTestRow = []
+    for j in range(testCSVCols -1):
+        currentTestRow.append(int(testCSV_matrix.item(i, j)))
+    neighbors = getNeighbors(test_table_matrix, currentTestRow, k)
+    classDecision = neighborVote(neighbors)
+    classifications.append(classDecision)
 
+print classifications
+
+#getting the actual classifications
+actualClassifications = []
+for i in range(testCSVRows):
+    actualClassifications.append(int(testCSV_matrix.item(i,9)))
+
+print actualClassifications
+
+print "Acc ", classificationAccuracyA(classifications, actualClassifications)
+
+print "BAcc ", classificationAccuracyB(classifications, actualClassifications)
