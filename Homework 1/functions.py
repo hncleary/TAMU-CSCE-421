@@ -1,8 +1,6 @@
 import scipy.spatial.distance as dist
 import numpy as np
 import math
-import csv
-import random
 import operator
 
 def euclideanDistance(x,y):
@@ -24,14 +22,6 @@ def chebyshevDistance(x,y):
 def canberraDistance(x,y):
     return dist.chebyshev(x,y)
 
-# def knnClassifier(kValue, dataPoint, dataMatrix):
-#     k = kValue
-#     x, y = dataPoint
-#
-#     matrixRows = dataMatrix
-#
-#     return 0
-
 def getNeighbors(trainingSet, testInstance, k):
     #training set is a matrix
     #test instance is an array
@@ -52,6 +42,10 @@ def getNeighbors(trainingSet, testInstance, k):
             currentRow.append(int(trainingSet.item(i, j)))
         currentRowClass = int(trainingSet.item(i, trainingSetCols - 1 ))
         similarity = euclideanDistance(currentRow, testInstance)
+        # similarity = manhattanDistance(currentRow, testInstance)
+        # similarity = cosineSimilarity(currentRow, testInstance)
+        # similarity = chebyshevDistance(currentRow, testInstance)
+        # similarity = canberraDistance(currentRow, testInstance)
         distances.append([similarity, currentRowClass])
     #sort the distances for each row in the training data
     distances.sort(key=operator.itemgetter(0))
@@ -60,15 +54,13 @@ def getNeighbors(trainingSet, testInstance, k):
     #return a list of the k closest classifications
     for i in range(k):
         neighbors.append(distances[i][1])
+
     #return classification of the test instance
     return neighbors
 
 def neighborVote(neighbors):
     class1Count = neighbors.count(2)
     class2Count = neighbors.count(4)
-
-    # print class1Count, "votes for benign"
-    # print class2Count, "votes for malignant"
 
     if class1Count > class2Count:
         # print "Voted as benign"
@@ -99,8 +91,6 @@ def classificationAccuracyB(classifications, actualClassifications):
 
     class1Samples = actualClassifications.count(2)
     class2Samples = actualClassifications.count(4)
-
-    # print class1Samples , class2Samples, class1Samples + class2Samples
     correctClass1Count = 0
     correctClass2Count = 0
 
@@ -115,7 +105,5 @@ def classificationAccuracyB(classifications, actualClassifications):
     class1Acc = correctClass1Count / float(class1Samples)
     class2Acc = correctClass2Count / float(class2Samples)
 
-    # print class1Acc, class2Acc
     inner = class1Acc + class2Acc
-    # print inner, inner*.5
     return inner*.5

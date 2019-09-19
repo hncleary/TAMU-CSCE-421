@@ -11,9 +11,6 @@ print "Loading Train CSV"
 with open("hw1_question1_train.csv") as csvtrain:
     reader = csv.DictReader(csvtrain)
     test_table = [row.split(",") for row in csvtrain.read().replace("\r", "").split("\n")]
-    # for row in reader:
-    #     print row
-    # print test_table
 
     test_table_matrix = np.matrix(test_table)
     # print test_table_matrix
@@ -24,15 +21,16 @@ if not question1:
     print "Loading Dev CSV"
     with open("hw1_question2_dev.csv") as csvdev:
         reader = csv.DictReader(csvdev)
-        # for row in reader:
-        #     print row
+        devCCSV_table = [row.split(",") for row in csvdev.read().replace("\r", "").split("\n")]
+        devCSV_matrix = np.matrix(devCCSV_table)
+    devCSVRows = np.size(devCSV_matrix, 0)
+    devCSVCols = np.size(devCSV_matrix, 1)
 
     #load test csv
     print "Loading Test CSV"
     with open("hw1_question2_test.csv") as csvtest:
         reader = csv.DictReader(csvtest)
-        # for row in reader:
-        #     print row
+
         testCSV_table = [row.split(",") for row in csvtest.read().replace("\r", "").split("\n")]
         testCSV_matrix = np.matrix(testCSV_table)
     testCSVRows = np.size(testCSV_matrix, 0)
@@ -265,6 +263,14 @@ for k in kValues:
         classDecision = neighborVote(neighbors)
         classifications.append(classDecision)
 
+    # for i in range(devCSVRows):
+    #     currentTestRow = []
+    #     for j in range(devCSVCols -1):
+    #         currentTestRow.append(int(devCSV_matrix.item(i, j)))
+    #     neighbors = getNeighbors(test_table_matrix, currentTestRow, k)
+    #     classDecision = neighborVote(neighbors)
+    #     classifications.append(classDecision)
+
     # print classifications
 
     #getting the actual classifications
@@ -280,5 +286,21 @@ for k in kValues:
     print k, " Acc ", Acc
     print k, " BAcc ", BAcc
 
-print kAcc
-print kBAcc
+kBAccRounded = []
+for i in range(len(kBAcc)):
+    kBAccRounded.append(round(kBAcc[i],3))
+
+
+print "Acc Values: ", kAcc
+print "Bacc Values: ", kBAccRounded
+
+fig3, ax = plt.subplots(1,2)
+ax[0].plot(kValues, kAcc)
+ax[0].set_title('K Values vs Acc')
+ax[0].set_ylim([.7,1])
+
+ax[1].plot(kValues, kBAcc)
+ax[1].set_title('K Values vs BAcc')
+ax[1].set_ylim([.7,1])
+
+plt.show()
