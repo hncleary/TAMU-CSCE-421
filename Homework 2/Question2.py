@@ -22,3 +22,11 @@ print noiseTestCols, noiseTestRows
 print noiseTrainCols, noiseTrainRows
 
 # print noiseTrain_matrix.item(2,0)
+
+# Question (i)
+# Plotting Histograms
+from matplotlib import pyplot as plt
+from histogramPlot import histogramPlot
+
+histogramPlot(noiseTrain_matrix, noiseTrainRows, noiseTrainCols)
+

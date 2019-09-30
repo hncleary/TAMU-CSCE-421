@@ -18,3 +18,4 @@ print sample1
 print sample2
 print sample3
 print weight0
+
