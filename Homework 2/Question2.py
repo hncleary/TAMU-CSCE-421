@@ -1,8 +1,7 @@
 import numpy as np
-print "Numpy Version: " , (np.__version__)
-
 import csv as csv
-print "CSV Version: " , (csv.__version__)
+print "Numpy Version: ", (np.__version__)
+print "CSV Version: ", (csv.__version__)
 
 with open("airfoil_self_noise_test.csv") as csvNoiseTest:
     reader = csv.DictReader(csvNoiseTest)
@@ -18,15 +17,48 @@ with open("airfoil_self_noise_train.csv") as csvNoiseTrain:
 noiseTrainRows = np.size(noiseTrain_matrix, 0)
 noiseTrainCols = np.size(noiseTrain_matrix, 1)
 
-print noiseTestCols, noiseTestRows
-print noiseTrainCols, noiseTrainRows
+# print noiseTestCols, noiseTestRows
+# print noiseTrainCols, noiseTrainRows
 
 # print noiseTrain_matrix.item(2,0)
 
-# Question (i)
-# Plotting Histograms
-from matplotlib import pyplot as plt
+# Question (i) - Plotting Histograms
 from histogramPlot import histogramPlot
+# histogramPlot(noiseTrain_matrix, noiseTrainRows, noiseTrainCols)
 
-histogramPlot(noiseTrain_matrix, noiseTrainRows, noiseTrainCols)
+# Question (ii) - Linear Regression (OLS)
+# build data matrix and output matrix
+from linearRegression import buildDataMatrix
+dataMatrix = buildDataMatrix(noiseTrain_matrix, noiseTrainRows, noiseTrainCols)
+
+from linearRegression import buildOutputMatrix
+outputMatrix = buildOutputMatrix(noiseTrain_matrix, noiseTrainRows, noiseTrainCols)
+
+
+from linearRegression import ordinaryLeastSquares
+weights = ordinaryLeastSquares(dataMatrix, outputMatrix)
+print weights
+
+from linearRegression import RSS
+RSSValue = RSS(dataMatrix, outputMatrix, weights)
+
+testMatrix = buildDataMatrix(noiseTest_matrix, noiseTestRows, noiseTrainCols)
+testOutputMatrix = buildOutputMatrix(noiseTest_matrix, noiseTestRows, noiseTestCols)
+testRSSValue = RSS(testMatrix, testOutputMatrix, weights)
+
+print testRSSValue
+# find the relationship between inputs and ouputs using ordinary least squares
+# from linearRegression import linearRegression
+# # linear regression function returns a vector of weights to correspond features with output
+# weights = linearRegression(dataMatrix, outputMatrix)
+# print weights
+
+# from linearRegression import ordinaryLeastSquares
+#
+# weights2 = ordinaryLeastSquares(dataMatrix, outputMatrix)
+# print weights2
+
+# from linearRegression import testModel
+# modelTest = testModel(weights, noiseTest_matrix)
+# print modelTest
 
