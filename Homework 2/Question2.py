@@ -47,6 +47,22 @@ testOutputMatrix = buildOutputMatrix(noiseTest_matrix, noiseTestRows, noiseTestC
 testRSSValue = RSS(testMatrix, testOutputMatrix, weights)
 
 print testRSSValue
+
+
+from linearRegression import buildCustomDataMatrix
+
+dataMatrix2 = buildCustomDataMatrix(noiseTrain_matrix)
+testMatrix2 = buildCustomDataMatrix(noiseTest_matrix)
+# print dataMatrix2
+# print np.shape(dataMatrix2)
+
+weights2 = ordinaryLeastSquares(dataMatrix2, outputMatrix)
+print weights2
+
+RSSValue2 = RSS(testMatrix2, testOutputMatrix, weights2)
+print RSSValue2
+
+
 # find the relationship between inputs and ouputs using ordinary least squares
 # from linearRegression import linearRegression
 # # linear regression function returns a vector of weights to correspond features with output

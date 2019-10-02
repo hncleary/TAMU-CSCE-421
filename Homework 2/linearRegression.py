@@ -21,6 +21,73 @@ def buildDataMatrix(dataMatrix, matrixRows, matrixCols):
     return buildMatrix
 
 
+def buildCustomDataMatrix(dataMatrix):
+    rows = np.size(dataMatrix, 0)
+    cols = np.size(dataMatrix, 1)
+    parameters = 1
+    parameterTruths  = np.zeros(shape=(1, cols))
+    include1 = True
+    include2 = True
+    include3 = False
+    include4 = True
+    include5 = True
+
+    parameterTruths.itemset(0, 1)
+    if include1:
+        parameters += 1
+        parameterTruths.itemset(1, 1)
+    if include2:
+        parameters += 1
+        parameterTruths.itemset(2, 1)
+    if include3:
+        parameters += 1
+        parameterTruths.itemset(3, 1)
+    if include4:
+        parameters += 1
+        parameterTruths.itemset(4, 1)
+    if include5:
+        parameters += 1
+        parameterTruths.itemset(5, 1)
+
+    buildMatrix = np.zeros(shape=(rows, parameters))
+    for i in range(rows):
+        generatedCols = 0
+        for j in range(cols):
+            if j == 0:
+                buildMatrix.itemset((i, j), 1)
+                generatedCols += 1
+            elif j == 1 and include1:
+                currentValue = float(dataMatrix.item(i, j - 1))
+                buildMatrix.itemset((i, generatedCols), currentValue)
+                generatedCols += 1
+            elif j == 2 and include2:
+                currentValue = float(dataMatrix.item(i, j - 1))
+                buildMatrix.itemset((i, generatedCols), currentValue)
+                generatedCols += 1
+            elif j == 3 and include3:
+                currentValue = float(dataMatrix.item(i, j - 1))
+                buildMatrix.itemset((i, generatedCols), currentValue)
+                generatedCols += 1
+            elif j == 4 and include4:
+                currentValue = float(dataMatrix.item(i, j - 1))
+                buildMatrix.itemset((i, generatedCols), currentValue)
+                generatedCols += 1
+            elif j == 5 and include5:
+                currentValue = float(dataMatrix.item(i, j - 1))
+                buildMatrix.itemset((i, generatedCols), currentValue)
+                generatedCols += 1
+            # else:
+            #     currentValue = float(dataMatrix.item(i, j - 1))
+            #     buildMatrix.itemset((i, j), currentValue)
+
+    print parameters
+    print parameterTruths
+
+    return buildMatrix
+
+
+
+
 def buildOutputMatrix(dataMatrix, matrixRows, matrixCols):
     rows = matrixRows
     cols = matrixCols
