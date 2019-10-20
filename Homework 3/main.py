@@ -18,13 +18,13 @@ with open("hw3_question1.csv") as csvQuestion1:
 Question1Rows = np.size(Question1_matrix, 0)
 Question1Cols = np.size(Question1_matrix, 1)
 
-
 with open("hw3_question2.csv") as csvQuestion2:
     reader = csv.DictReader(csvQuestion2)
     Question2_table = [row.split(",") for row in csvQuestion2.read().replace("\r", "").split("\n")]
-    Question2_matrix = np.matrix(Question1_table)
-Question2Rows = np.size(Question1_matrix, 0)
-Question2Cols = np.size(Question1_matrix, 1)
+    Question2_matrix = np.matrix(Question2_table)
+Question2Rows = np.size(Question2_matrix, 0)
+Question2Cols = np.size(Question2_matrix, 1)
+
 
 
 # Question 1-A
@@ -54,8 +54,8 @@ for i in range(10):
 
     predictions = logmodel.predict(X_test)
     # print(i)
-    # print(classification_report(Y_test.round() , predictions.round() ))
-    sns.regplot()
+    print(classification_report(Y_test.round() , predictions.round() ))
+    # sns.regplot()
 
 
 
