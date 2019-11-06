@@ -80,6 +80,15 @@ for j in range(treeCount2):
     errorAverages.append(RSSError2)
 print(hf.arrayAverage(errorAverages))
 
+from sklearn.tree import export_graphviz
+
+regressor3 = DecisionTreeRegressor(random_state=0, max_depth=55)
+regressor3.fit(XTrain, YTrain)
+prediction3 = np.array(regressor3.predict(XTest))
+actualValues3 = hf.parseOutputDataFrame(YTest)
+export_graphviz(regressor3, out_file ='tree.dot')
+
+
 # plt.plot(depths, errorAverages)
 # plt.ylabel("RSS Error Average")
 # plt.xlabel("Depth")
