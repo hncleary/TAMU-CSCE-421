@@ -7,6 +7,28 @@ import matplotlib.pyplot as plt
 import random
 
 
+def specifyFeatureSet(splitTrainInput, splitTestInput):
+    splitTrainX, splitTestX = splitTrainInput, splitTestInput
+
+    splitTrainX1 = splitTrainX.iloc[:, 19:41].astype(float)
+    splitTestX1 = splitTestX.iloc[:, 19:41].astype(float)
+
+    # splitTrainX2 = splitTrainX.iloc[:, 22:23].astype(float)
+    # splitTestX2 = splitTestX.iloc[:, 22:23].astype(float)
+    #
+    # splitTrainX3 = splitTrainX.iloc[:, 19:20].astype(float)
+    # splitTestX3 = splitTestX.iloc[:, 19:20].astype(float)
+    #
+    # splitTrainX4 = splitTrainX.iloc[:, 56:57].astype(float)
+    # splitTestX4 = splitTestX.iloc[:, 56:57].astype(float)
+
+    # splitTrainXNew = splitTrainX1.append(splitTrainX2.append(splitTrainX3.append(splitTrainX4)))
+    # splitTestXNew = splitTestX1.append(splitTestX2.append(splitTestX3.append(splitTestX4)))
+    splitTrainXNew = splitTrainX1
+    splitTestXNew = splitTestX1
+    return splitTrainXNew, splitTestXNew
+
+
 def randomizeFeatureSet(splitTrainInput, splitTestInput):
     splitTrainX,  splitTestX = splitTrainInput, splitTestInput
 
